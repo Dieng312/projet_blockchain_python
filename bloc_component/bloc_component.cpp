@@ -36,12 +36,12 @@ nlohmann::json Bloc::to_json(){
     bloc_json["previous_hash"] = previous_hash;
 
     nlohmann::json transactions_json;
-    for (std::list<TX*> it=txs.begin(); it != txs.end(); ++it) {
-		transactions_json.push_back((**it).to_json());
+    for (std::list<TX>::const_iterator it=txs.begin(); it != txs.end(); ++it) {
+		transactions_json.push_back((*it).to_json());
 	}
      
     bloc_json["transactions"] = transactions_json;
-    bloc_json["txm"] = tx0;
+    bloc_json["txm"] = tx0.to_json();
 
     return bloc_json;
 }
@@ -61,5 +61,5 @@ PYBIND11_MODULE(bloc_component, m) {
         .def(py::init<const nlohmann::json &>())
         .def("to_json", &Bloc::to_json)
         .def("setNonce", &Bloc::setNonce)
-        .def("getNonce", &Bloc::getNonce)
+        .def("getNonce", &Bloc::getNonce);
 }

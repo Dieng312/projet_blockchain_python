@@ -44,7 +44,7 @@ class UTXO // une sortie non d�pens�e
 class TX { // transaction standard (many inputs, many outputs)
  public:
    TX(const nlohmann::json &j);
-	nlohmann::json to_json();
+	nlohmann::json to_json() const;
   std::list<TXI>	TXIs;
   std::list<UTXO>	UTXOs;
 };
@@ -53,7 +53,7 @@ class TXM { // transaction du mineur : coinbase
  public:
     TXM();
     TXM(const nlohmann::json &j);
-	nlohmann::json to_json();
+	nlohmann::json to_json() const;
 	UTXO utxo[1];
 };
 
