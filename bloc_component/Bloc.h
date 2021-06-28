@@ -1,12 +1,17 @@
 #pragma once
 #ifndef _BLOC_H
 
+#include <string>
 #include <list>
-#include <iostream>
-#include <list>
+#include <pybind11/pybind11.h>
 #include <nlohmann/json.hpp>
+#include <pybind11_json/pybind11_json.hpp>
+#include <pybind11/stl.h>
+#include <pybind11/functional.h>
+
+namespace py = pybind11;
 //
-// bloc.h  version 1.2
+// bloc.h  version 1.3
 //
 // projet blockchain M2IF 2018-2019-2020-2021
 //
@@ -25,7 +30,7 @@ class TXI // input d'une transaction, correspondant a la depense d'une UTXO
 	unsigned int nBloc; // numero de bloc de l'UTXO correspondant a  cette TXI
 	unsigned int nTx;   // numero de la transaction de TX dans le bloc
 	unsigned int nUtxo; // numero de l'UTXO dans la transaction TX
-	unsigned char signature[128]; // signature des 3 champs precedents, verifiable
+	std::string signature[128]; // signature des 3 champs precedents, verifiable
 };
 
 class UTXO // une sortie non d�pens�e
@@ -43,30 +48,38 @@ class UTXO // une sortie non d�pens�e
 
 class TX { // transaction standard (many inputs, many outputs)
  public:
-   TX(const nlohmann::json &j);
-	nlohmann::json to_json() const;
+  TX(const nlohmann::json &j){};
+  py::object to_json() const{
+      nlohmann::json j;
+      j["name"]="dummy";
+      return j;
+  };
   std::list<TXI>	TXIs;
   std::list<UTXO>	UTXOs;
 };
 
 class TXM { // transaction du mineur : coinbase
  public:
-    TXM();
-    TXM(const nlohmann::json &j);
-	nlohmann::json to_json() const;
-	UTXO utxo[1];
+    TXM(){};
+    TXM(const nlohmann::json &j){};
+    py::object to_json() const{
+	nlohmann::json j;
+	return j;
+    };
+    UTXO utxo[1];
 };
 
 class Bloc
 {
  public :
+	Bloc(); // cree un bloc exemple
 	Bloc(const nlohmann::json &j);
-	nlohmann::json to_json();
+	py::object to_json() const;
  public:
-	char hash[HASH_SIZE]; // hash des autres champs, hash of the entire bloc
+	std::string hash; // hash des autres champs, hash of the entire bloc
 	unsigned int nonce;
 
-	char previous_hash[HASH_SIZE]; // hash of the previous bloc
+	std::string previous_hash; // hash of the previous bloc
 	int num; // numero du bloc, commence a zero
 	std::list<TX> txs; //  transactions du bloc
 	TXM tx0; // transaction du mineur (coinbase)

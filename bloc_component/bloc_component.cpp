@@ -8,6 +8,16 @@ namespace py = pybind11;
 using namespace std;
 
 
+Bloc::Bloc() {
+	num=0;
+	hash=std::string("000123456789A123456789A123456789A123456789A123456789A123456789A");
+	previous_hash=std::string("000123456789A123456789A123456789A123456789A123456789A123456789A");
+	nonce=42;
+	TXM *txm = new TXM();
+	tx0=*txm;
+}
+
+
 Bloc::Bloc(const nlohmann::json &j) {
 	nlohmann::json transactions_json = j["transactions"];
     
@@ -17,18 +27,16 @@ Bloc::Bloc(const nlohmann::json &j) {
 	}
 
     num = j["num"];
-    std::string hash_tmp = j["hash"];
-    strncpy(hash, hash_tmp.c_str(), 64);
+    hash = j["hash"];
     nonce = j["nonce"];
-    std::string previous_tmp = j["previous_hash"];
-    strncpy(previous_hash ,previous_tmp.c_str(), 64);
+    previous_hash = j["previous_hash"];
     TXM *txm = new TXM(j["txm"]) ;
     tx0 = *txm;
 }
 
 
 
-nlohmann::json Bloc::to_json(){
+py::object Bloc::to_json() const{
     nlohmann::json bloc_json;
     bloc_json["num"] = this->num;
     bloc_json["hash"] = hash;
@@ -54,10 +62,12 @@ unsigned int Bloc::getNonce(){
 }
 
 
+namespace py = pybind11;
 
 
 PYBIND11_MODULE(bloc_component, m) {
     py::class_<Bloc>(m, "Bloc")
+	.def(py::init())
         .def(py::init<const nlohmann::json &>())
         .def("to_json", &Bloc::to_json)
         .def("setNonce", &Bloc::setNonce)
