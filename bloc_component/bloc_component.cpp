@@ -17,9 +17,11 @@ Bloc::Bloc(const nlohmann::json &j) {
 	}
 
     num = j["num"];
-    strncpy(hash, j["hash"], 64);
+    std::string hash_tmp = j["hash"];
+    strncpy(hash, hash_tmp.c_str(), 64);
     nonce = j["nonce"];
-    strncpy(previous_hash ,j["previous_hash"], 64);
+    std::string previous_tmp = j["previous_hash"];
+    strncpy(previous_hash ,previous_tmp.c_str(), 64);
     TXM *txm = new TXM(j["txm"]) ;
     tx0 = *txm;
 }
