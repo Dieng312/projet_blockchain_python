@@ -51,6 +51,7 @@ class TX { // transaction standard (many inputs, many outputs)
 
 class TXM { // transaction du mineur : coinbase
  public:
+    TXM();
     TXM(const nlohmann::json &j);
 	nlohmann::json to_json();
 	UTXO utxo[1];
