@@ -36,8 +36,8 @@ nlohmann::json Bloc::to_json(){
     bloc_json["previous_hash"] = previous_hash;
 
     nlohmann::json transactions_json;
-    for (std::list<TX> it=txs.begin(); it != txs.end(); ++it) {
-		transactions_json.push_back((*it).to_json());
+    for (std::list<TX*> it=txs.begin(); it != txs.end(); ++it) {
+		transactions_json.push_back((**it).to_json());
 	}
      
     bloc_json["transactions"] = transactions_json;
