@@ -43,6 +43,8 @@ class UTXO // une sortie non d�pens�e
 
 class TX { // transaction standard (many inputs, many outputs)
  public:
+   TX(const nlohmann::json &j);
+	nlohmann::json to_json();
   std::list<TXI>	TXIs;
   std::list<UTXO>	UTXOs;
 };
