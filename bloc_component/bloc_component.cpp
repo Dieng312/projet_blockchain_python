@@ -13,7 +13,7 @@ Bloc::Bloc(const nlohmann::json &j) {
     
 	for (nlohmann::json::const_iterator it=transactions_json.begin(); it !=transactions_json.end(); ++it) {
 	   TX *tx=new TX(*it);
-	   txs.push_back(tx);
+	   txs.push_back(*tx);
 	}
 
     num = j["num"];
@@ -34,7 +34,7 @@ nlohmann::json Bloc::to_json(){
 
     nlohmann::json transactions_json;
     for (std::list<TX> it=txs.begin(); it != txs.end(); ++it) {
-		transactions_json.push_back((**it).to_json());
+		transactions_json.push_back((*it).to_json());
 	}
      
     bloc_json["transactions"] = transactions_json;
