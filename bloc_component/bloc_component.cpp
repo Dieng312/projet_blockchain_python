@@ -85,9 +85,9 @@ void Bloc::computeHash(){
 
 bool Bloc::validationDifficultyBloc(){
     std::string valide = std::string("000000000000000000000000000000000000000000000000000000000000000");
-    std::string str1 = hash.substr(0, difficulty);
-    std::string str2 = valide.substr(0, difficulty);
-    if( hash.length()!=HASH_SIZE || str1.compare(str2) != 0 ){
+    std::string str1 = hash.substr(0, 1);
+    std::string str2 = valide.substr(0, 1);
+    if( hash.length()!= HASH_SIZE || str1.compare(str2) != 0 ){
         return false;
     };
     return true;
