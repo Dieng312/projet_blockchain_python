@@ -79,7 +79,7 @@ std::string Bloc::getPrevious_hash(){
 void Bloc::computeHash(){
     hash = "";
     py::object bloc_json = to_json();
-    hash = "";// py_hacheur::sha256(bloc_json);
+    hash = ""//component_hachage::SHA256(bloc_json);
 };
 
 
@@ -87,9 +87,11 @@ bool Bloc::validationDifficultyBloc(){
     std::string valide = std::string("0000000000000000000000000000000000000000000000000000000000000000");
     std::string str1 = hash.substr(0, 1);
     std::string str2 = valide.substr(0, 1);
-    if( hash.length() != HASH_SIZE || str1.compare(str2) != 0 ){
+    if( hash.length() != HASH_SIZE){
+        cout << " Erreur taille du hash != 64  " << endl;
         return false;
     };
+    if(str1.compare(str2) != 0 )return false;
     return true;
 };
 
