@@ -10,8 +10,8 @@ using namespace std;
 
 Bloc::Bloc() {
 	num=0;
-	hash=std::string("000123456789A123456789A123456789A123456789A123456789A123456789A");
-	previous_hash=std::string("000123456789A123456789A123456789A123456789A123456789A123456789A");
+	hash=std::string("0000123456789A123456789A123456789A123456789A123456789A123456789A");
+	previous_hash=std::string("0000123456789A123456789A123456789A123456789A123456789A123456789A");
 	nonce=42;
 	TXM *txm = new TXM();
 	tx0=*txm;
@@ -84,11 +84,10 @@ void Bloc::computeHash(){
 
 
 bool Bloc::validationDifficultyBloc(){
-    std::string valide = std::string("000000000000000000000000000000000000000000000000000000000000000");
+    std::string valide = std::string("0000000000000000000000000000000000000000000000000000000000000000");
     std::string str1 = hash.substr(0, 1);
     std::string str2 = valide.substr(0, 1);
-    cout << hash.length() << endl;
-    if( hash.length() != HASH_SIZE ){//|| str1.compare(str2) != 0 ){
+    if( hash.length() != HASH_SIZE || str1.compare(str2) != 0 ){
         return false;
     };
     return true;
