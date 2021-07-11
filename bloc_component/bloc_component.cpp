@@ -41,7 +41,7 @@ __attribute__ ((visibility ("default"))) Bloc::Bloc(const nlohmann::json &j) {
 
 __attribute__ ((visibility ("default"))) py::object Bloc::to_json() const{
     nlohmann::json bloc_json;
-    bloc_json["num"] = this->num;
+   // bloc_json["num"] = this->num;
     bloc_json["hash"] = hash;
     bloc_json["nonce"] = nonce;
     bloc_json["previous_hash"] = previous_hash;
