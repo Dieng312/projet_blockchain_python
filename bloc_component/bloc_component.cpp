@@ -20,7 +20,7 @@ Bloc::Bloc() {
 }
 
 
-Bloc::Bloc(const nlohmann::json &j) {
+__attribute__ ((visibility ("default"))) Bloc::Bloc(const nlohmann::json &j) {
 	nlohmann::json transactions_json = j["transactions"];
     
 	for (nlohmann::json::const_iterator it=transactions_json.begin(); it !=transactions_json.end(); ++it) {
@@ -38,7 +38,7 @@ Bloc::Bloc(const nlohmann::json &j) {
 
 
 
-py::object Bloc::to_json() const{
+__attribute__ ((visibility ("default"))) py::object Bloc::to_json() const{
     nlohmann::json bloc_json;
     bloc_json["num"] = num;
     bloc_json["hash"] = hash;
@@ -96,7 +96,7 @@ bool Bloc::validationDifficultyBloc(){
     return true;
 };
 
-bool Bloc::validationBloc(){
+__attribute__ ((visibility ("default"))) bool Bloc::validationBloc(){
     std::string h = hash;
     computeHash();
     if(validationDifficultyBloc() && hash.compare(h) == 0) return true;
