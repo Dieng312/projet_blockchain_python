@@ -111,7 +111,7 @@ PYBIND11_MODULE(bloc_component, m) {
         .def("to_json", &Bloc::to_json)
         .def("setNonce", &Bloc::setNonce)
         .def("getNonce", &Bloc::getNonce)
-        .def("setHash", &Bloc::sethash)
+        .def("setHash", &Bloc::setHash)
         .def("getHash", &Bloc::getHash)
         .def("setPrevious_hash", &Bloc::setPrevious_hash)
         .def("getPrevious_hash", &Bloc::getPrevious_hash
