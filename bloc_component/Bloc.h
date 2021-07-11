@@ -74,7 +74,7 @@ class Bloc
  public :
 	Bloc(); // cree un bloc exemple
 	Bloc(const nlohmann::json &j);
-	py::object to_json() const;
+//	py::object to_json() const;
   void setNonce(int new_nonce);
 	unsigned int getNonce();
   void setHash(std::string h);
