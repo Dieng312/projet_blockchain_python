@@ -3,7 +3,9 @@
 #include <list>
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
+#include "sha256.h"
 
+namespace py_hacheur = sha256;
 namespace py = pybind11;
 using namespace std;
 
@@ -15,28 +17,29 @@ Bloc::Bloc() {
 	nonce=42;
 	TXM *txm = new TXM();
 	tx0=*txm;
+    difficulty = 3;
 }
 
 
-Bloc::Bloc(const nlohmann::json &j) {
+__attribute__ ((visibility ("default"))) Bloc::Bloc(const nlohmann::json &j) {
 	nlohmann::json transactions_json = j["transactions"];
     
 	for (nlohmann::json::const_iterator it=transactions_json.begin(); it !=transactions_json.end(); ++it) {
 	   TX *tx=new TX(*it);
 	   txs.push_back(*tx);
 	}
-
     num = j["num"];
     hash = j["hash"];
     nonce = j["nonce"];
     previous_hash = j["previous_hash"];
     TXM *txm = new TXM(j["txm"]) ;
     tx0 = *txm;
+    difficulty = 3;
 }
 
 
 
-py::object Bloc::to_json() const{
+__attribute__ ((visibility ("default"))) py::object Bloc::to_json() const{
     nlohmann::json bloc_json;
     bloc_json["num"] = this->num;
     bloc_json["hash"] = hash;
@@ -61,6 +64,41 @@ unsigned int Bloc::getNonce(){
     return nonce;
 }
 
+void Bloc::setHash(std::string h){
+    hash = h;
+};
+std::string Bloc::getHash(){
+    return hash;
+};
+void Bloc::setPrevious_hash(std::string p_h){
+    previous_hash = p_h;
+};
+std::string Bloc::getPrevious_hash(){
+    return previous_hash;
+};
+
+void Bloc::computeHash(){
+    hash = "";
+    std::string bloc_json = this.to_json();
+    hash =  py_hacheur::sha256(bloc_json);
+};
+
+
+bool Bloc::validationDifficultyBloc(){
+    std::string valide = std::string("000000000000000000000000000000000000000000000000000000000000000");
+    if(hash.length()!=HASH_SIZE || strcmp(hash.substr(0, difficulty)).compare(valide.substr(0, difficulty))=!0){
+        return false;
+    };
+    return true;
+};
+
+__attribute__ ((visibility ("default"))) bool validationBloc(){
+    std::string h = this->hash;
+    computehash();
+    if(validationDifficultyBloc() && this->hash = h) return true;
+    return false;
+};
+
 
 namespace py = pybind11;
 
@@ -71,5 +109,10 @@ PYBIND11_MODULE(bloc_component, m) {
         .def(py::init<const nlohmann::json &>())
         .def("to_json", &Bloc::to_json)
         .def("setNonce", &Bloc::setNonce)
-        .def("getNonce", &Bloc::getNonce);
+        .def("getNonce", &Bloc::getNonce)
+        .def("setHash", &Bloc::sethash)
+        .def("getHash", &Bloc::getHash)
+        .def("setPrevious_hash", &Bloc::setPrevious_hash)
+        .def("getPrevious_hash", &Bloc::getPrevious_hash
+        .def("validationBloc", &Bloc::validationBloc);
 }

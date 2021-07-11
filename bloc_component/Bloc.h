@@ -75,17 +75,25 @@ class Bloc
 	Bloc(); // cree un bloc exemple
 	Bloc(const nlohmann::json &j);
 	py::object to_json() const;
+  void setNonce(int new_nonce);
+	unsigned int getNonce();
+  void setHash(std::string h);
+  std::string getHash();
+  void setPrevious_hash(std::string p_h);
+  std::string getPrevious_hash();
+  void computeHash();
+  bool validationDifficultyBloc();
+  bool validationBloc();
+
  public:
 	std::string hash; // hash des autres champs, hash of the entire bloc
 	unsigned int nonce;
-
 	std::string previous_hash; // hash of the previous bloc
 	int num; // numero du bloc, commence a zero
 	std::list<TX> txs; //  transactions du bloc
 	TXM tx0; // transaction du mineur (coinbase)
+  int difficulty;
 
-	void setNonce(int);
-	unsigned int getNonce();
 
 };
 
