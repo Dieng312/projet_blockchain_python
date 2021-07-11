@@ -96,7 +96,7 @@ bool Bloc::validationDifficultyBloc(){
 bool Bloc::validationBloc(){
     std::string h = hash;
     computeHash();
-    if(validationDifficultyBloc() && hash = h) return true;
+    if(validationDifficultyBloc() && hash.compare(h) == 0) return true;
     return false;
 };
 
