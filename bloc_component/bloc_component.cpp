@@ -3,9 +3,7 @@
 #include <list>
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
-//#include "sha256.h"
 
-//namespace py_hacheur = sha256;
 namespace py = pybind11;
 using namespace std;
 
