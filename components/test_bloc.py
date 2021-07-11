@@ -6,5 +6,4 @@ from bloc_component import Bloc
 b=Bloc()
 print (b.to_json())
 valide = False
-valide = b.validationDifficultyBloc() 
-print (valide)
+print (b.getHash())
