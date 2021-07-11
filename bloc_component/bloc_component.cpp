@@ -67,7 +67,7 @@ unsigned int Bloc::getNonce(){
 void Bloc::setHash(std::string h){
     hash = h;
 };
-__attribute__ ((visibility ("default"))) std::string Bloc::getHash(){
+std::string Bloc::getHash(){
     return hash;
 };
 void Bloc::setPrevious_hash(std::string p_h){
