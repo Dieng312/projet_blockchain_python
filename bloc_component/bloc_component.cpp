@@ -78,7 +78,7 @@ std::string Bloc::getPrevious_hash(){
 
 void Bloc::computeHash(){
     hash = "";
-    std::string bloc_json = to_json();
+    py::object bloc_json = to_json();
     hash = "";// py_hacheur::sha256(bloc_json);
 };
 
