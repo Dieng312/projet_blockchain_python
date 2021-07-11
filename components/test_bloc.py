@@ -4,15 +4,20 @@ setdlopenflags (RTLD_GLOBAL | 2)
 
 from bloc_component import Bloc
 b=Bloc()
-print (b.to_json())
-print(" hash de bloc_0 : hash_0 = ", b.getHash())
-print(" Test validation du hash de bloc_0 : ", b.validationDifficultyBloc())
+
+
+print ("bloc_0 : ",b.to_json())
+print(" Test validation du hash de bloc_0 : ")
+print(b.validationDifficultyBloc())
 
 b.setHash("1100123456789A123456789A123456789A123456789A123456789A123456789A")
 
-print(" hash de bloc_1 : hash_1 = ", b.getHash())
-print(" Test validation du hash de bloc_1 : ", b.validationDifficultyBloc())
+print ("bloc_1 : ",b.to_json())
+print(" Test validation du hash de bloc_1 : ")
+print(b.validationDifficultyBloc())
 
 b.setHash("1100123456789A123456789A123456789A123456789A123456789A")
-print(" hash de bloc_2 : hash_2 = ", b.getHash())
-print(" Test validation du hash de bloc_2 : ", b.validationDifficultyBloc())
+
+print("bloc_2 : ", b.to_json())
+print(" Test validation du hash de bloc_2 : ") 
+print(b.validationDifficultyBloc())
