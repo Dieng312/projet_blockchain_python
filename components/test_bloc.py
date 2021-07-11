@@ -5,4 +5,6 @@ setdlopenflags (RTLD_GLOBAL | 2)
 from bloc_component import Bloc
 b=Bloc()
 print (b.to_json())
-print (b.validationDifficultyBloc())
+valide = False
+valide = b.validationDifficultyBloc() 
+print (valide)
