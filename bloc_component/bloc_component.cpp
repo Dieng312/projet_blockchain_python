@@ -1,4 +1,5 @@
 #include "Bloc.h"
+#include "component_hachage.h"
 #include <string>
 #include <list>
 #include <pybind11/pybind11.h>
@@ -79,7 +80,7 @@ std::string Bloc::getPrevious_hash(){
 void Bloc::computeHash(){
     hash = "";
     py::object bloc_json = to_json();
-    hash = ""; //component_hachage::SHA256(bloc_json);
+    hash = component_hachage::SHA256(bloc_json);
 };
 
 
@@ -88,7 +89,7 @@ bool Bloc::validationDifficultyBloc(){
     std::string str1 = hash.substr(0, 1);
     std::string str2 = valide.substr(0, 1);
     if( hash.length() != HASH_SIZE){
-        cout << " Erreur taille du hash != 64  " << endl;
+        cout << "Erreur : taille du hash != 64  " << endl;
         return false;
     };
     if(str1.compare(str2) != 0 )return false;

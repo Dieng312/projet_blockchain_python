@@ -92,7 +92,7 @@ class Bloc
 	int num; // numero du bloc, commence a zero
 	std::list<TX> txs; //  transactions du bloc
 	TXM tx0; // transaction du mineur (coinbase)
-  int difficulty;
+  int difficulty; // nombre minimal de zéros au début d'un hash valide
 
 
 };
