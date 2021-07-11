@@ -21,7 +21,7 @@ Bloc::Bloc() {
 }
 
 
-__attribute__ ((visibility ("default"))) Bloc::Bloc(const nlohmann::json &j) {
+Bloc::Bloc(const nlohmann::json &j) {
 	nlohmann::json transactions_json = j["transactions"];
     
 	for (nlohmann::json::const_iterator it=transactions_json.begin(); it !=transactions_json.end(); ++it) {
@@ -39,9 +39,9 @@ __attribute__ ((visibility ("default"))) Bloc::Bloc(const nlohmann::json &j) {
 
 
 
-__attribute__ ((visibility ("default"))) py::object Bloc::to_json() const{
+py::object Bloc::to_json() const{
     nlohmann::json bloc_json;
-   // bloc_json["num"] = this->num;
+    bloc_json["num"] = num;
     bloc_json["hash"] = hash;
     bloc_json["nonce"] = nonce;
     bloc_json["previous_hash"] = previous_hash;
@@ -80,7 +80,7 @@ std::string Bloc::getPrevious_hash(){
 
 void Bloc::computeHash(){
     hash = "";
-    std::string bloc_json = this.to_json();
+    std::string bloc_json = to_json();
     hash = "";// py_hacheur::sha256(bloc_json);
 };
 
@@ -93,10 +93,10 @@ bool Bloc::validationDifficultyBloc(){
     return true;
 };
 
-__attribute__ ((visibility ("default"))) bool validationBloc(){
-    std::string h = this->hash;
+bool validationBloc(){
+    std::string h = hash;
     computehash();
-    if(validationDifficultyBloc() && this->hash = h) return true;
+    if(validationDifficultyBloc() && hash = h) return true;
     return false;
 };
 
