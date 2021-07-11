@@ -45,6 +45,7 @@ __attribute__ ((visibility ("default"))) py::object Bloc::to_json() const{
     bloc_json["hash"] = hash;
     bloc_json["nonce"] = nonce;
     bloc_json["previous_hash"] = previous_hash;
+    bloc_json["difficulty"] = difficulty;
 
     nlohmann::json transactions_json;
     for (std::list<TX>::const_iterator it=txs.begin(); it != txs.end(); ++it) {
