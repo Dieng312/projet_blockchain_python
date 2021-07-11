@@ -3,9 +3,9 @@
 #include <list>
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
-#include "sha256.h"
+//#include "sha256.h"
 
-namespace py_hacheur = sha256;
+//namespace py_hacheur = sha256;
 namespace py = pybind11;
 using namespace std;
 
@@ -37,7 +37,7 @@ __attribute__ ((visibility ("default"))) Bloc::Bloc(const nlohmann::json &j) {
     difficulty = 3;
 }
 
-/*
+
 
 __attribute__ ((visibility ("default"))) py::object Bloc::to_json() const{
     nlohmann::json bloc_json;
@@ -57,7 +57,7 @@ __attribute__ ((visibility ("default"))) py::object Bloc::to_json() const{
 
     return bloc_json;
 }
-*/
+
 void Bloc::setNonce(int new_nonce){
     nonce = new_nonce;
 }
@@ -80,8 +80,8 @@ std::string Bloc::getPrevious_hash(){
 
 void Bloc::computeHash(){
     hash = "";
-    std::string bloc_json = "";//this.to_json();
-    hash =  py_hacheur::sha256(bloc_json);
+    std::string bloc_json = this.to_json();
+    hash = "";// py_hacheur::sha256(bloc_json);
 };
 
 
@@ -108,7 +108,7 @@ PYBIND11_MODULE(bloc_component, m) {
     py::class_<Bloc>(m, "Bloc")
 	.def(py::init())
         .def(py::init<const nlohmann::json &>())
-      //  .def("to_json", &Bloc::to_json)
+        .def("to_json", &Bloc::to_json)
         .def("setNonce", &Bloc::setNonce)
         .def("getNonce", &Bloc::getNonce)
         .def("setHash", &Bloc::sethash)
