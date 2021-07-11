@@ -114,6 +114,6 @@ PYBIND11_MODULE(bloc_component, m) {
         .def("setHash", &Bloc::setHash)
         .def("getHash", &Bloc::getHash)
         .def("setPrevious_hash", &Bloc::setPrevious_hash)
-        .def("getPrevious_hash", &Bloc::getPrevious_hash
+        .def("getPrevious_hash", &Bloc::getPrevious_hash)
         .def("validationBloc", &Bloc::validationBloc);
 }
