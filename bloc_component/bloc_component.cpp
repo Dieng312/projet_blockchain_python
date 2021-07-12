@@ -1,5 +1,5 @@
 #include "Bloc.h"
-#include "sha256.h"
+#include "sha256/sha256.h"
 #include <string>
 #include <list>
 #include <pybind11/pybind11.h>
