@@ -1,5 +1,5 @@
 #include "Bloc.h"
-#include "component_hachage.h"
+#include "sha256/sha256.h"
 #include <string>
 #include <list>
 #include <pybind11/pybind11.h>
