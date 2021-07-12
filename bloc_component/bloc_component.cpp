@@ -80,7 +80,7 @@ std::string Bloc::getPrevious_hash(){
 void Bloc::computeHash(){
     hash = "";
     py::object bloc_json = to_json();
-    hash = component_hachage::SHA256(bloc_json);
+    hash = sha256::SHA256(bloc_json);
 };
 
 
